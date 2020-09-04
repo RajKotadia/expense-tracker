@@ -1,0 +1,28 @@
+{
+	"name": "expense-tracker",
+	"version": "1.0.0",
+	"description": "A MERN stack based webapp to manage your expenses.  ",
+	"main": "index.js",
+	"scripts": {
+		"start": "node server/index.js",
+		"dev": "nodemon server/index.js"
+	},
+	"keywords": [
+		"nodejs",
+		"expressjs",
+		"mongodb",
+		"reactjs"
+	],
+	"author": "Raj Kotadia",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"helmet": "^4.1.0",
+		"mongoose": "^5.10.2",
+		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.4"
+	}
+}
