@@ -10,6 +10,13 @@ const schema = Joi.object({
 	password: Joi.string().trim().min(8).required(),
 });
 
+// handle error and call next
+const handleError = (statusCode, message, res, next) => {
+	const err = new Error(message);
+	res.status(statusCode);
+	next(err);
+};
+
 // generate the jwt token
 const genToken = (user, res, next) => {
 	const payload = {
@@ -29,15 +36,14 @@ const genToken = (user, res, next) => {
 	);
 };
 
+// new user signup controller
 const signup = async (req, res, next) => {
 	// validate the request body
 	const { email, password } = req.body;
 	const { error } = schema.validate({ email, password });
 
 	if (error) {
-		const err = new Error(error.details[0].message);
-		res.status(422);
-		return next(err);
+		return handleError(422, error.details[0].message, res, next);
 	}
 
 	try {
@@ -57,15 +63,14 @@ const signup = async (req, res, next) => {
 	}
 };
 
+// user login controller
 const login = async (req, res, next) => {
 	// validate the request body
 	const { email, password } = req.body;
 	const { error } = schema.validate({ email, password });
 
 	if (error) {
-		const err = new Error(error.details[0].message);
-		res.status(422);
-		return next(err);
+		return handleError(422, error.details[0].message, res, next);
 	}
 
 	try {
@@ -73,18 +78,14 @@ const login = async (req, res, next) => {
 		const user = await User.findOne({ email });
 
 		if (!user) {
-			const err = new Error("Invalid username or password");
-			res.status(422);
-			return next(err);
+			return handleError(422, "Invalid email or password", res, next);
 		}
 
 		// check if the password is correct
 		const isMatch = await bcrypt.compare(password, user.password);
 
 		if (!isMatch) {
-			const err = new Error("Invalid username or password");
-			res.status(422);
-			return next(err);
+			return handleError(422, "Invalid email or password", res, next);
 		}
 
 		// if all the above checks pass - generate the token and send as response
