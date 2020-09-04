@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const User = require("./auth.model");
 
@@ -56,6 +57,44 @@ const signup = async (req, res, next) => {
 	}
 };
 
+const login = async (req, res, next) => {
+	// validate the request body
+	const { email, password } = req.body;
+	const { error } = schema.validate({ email, password });
+
+	if (error) {
+		const err = new Error(error.details[0].message);
+		res.status(422);
+		return next(err);
+	}
+
+	try {
+		// check if user exists in db
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			const err = new Error("Invalid username or password");
+			res.status(422);
+			return next(err);
+		}
+
+		// check if the password is correct
+		const isMatch = await bcrypt.compare(password, user.password);
+
+		if (!isMatch) {
+			const err = new Error("Invalid username or password");
+			res.status(422);
+			return next(err);
+		}
+
+		// if all the above checks pass - generate the token and send as response
+		genToken(user, res, next);
+	} catch (err) {
+		next(err);
+	}
+};
+
 module.exports = {
 	signup,
+	login,
 };
