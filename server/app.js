@@ -3,7 +3,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 
 const routes = require("./api");
-const { notFound, errorHandler } = require("./middlewares");
+const { checkTokenSetUser, notFound, errorHandler } = require("./middlewares");
 
 const app = express();
 
@@ -14,6 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(morgan("tiny"));
+
+// token verification middleware
+app.use(checkTokenSetUser);
 
 // register the routes
 app.use("/api", routes);

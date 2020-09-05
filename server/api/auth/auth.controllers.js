@@ -95,7 +95,15 @@ const login = async (req, res, next) => {
 	}
 };
 
+// to authenticate the user and the token on client
+const authenticate = (req, res) => {
+	res.json({
+		user: req.user,
+	});
+};
+
 module.exports = {
 	signup,
 	login,
+	authenticate,
 };

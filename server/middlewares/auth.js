@@ -1,0 +1,26 @@
+const jwt = require("jsonwebtoken");
+
+// verify the token received from client and set the payload on the req object
+const checkTokenSetUser = (req, res, next) => {
+	const authHeader = req.get("Authorization");
+
+	if (authHeader) {
+		const token = authHeader.split(" ")[1];
+
+		if (token) {
+			jwt.verify(token, process.env.JWT_SECRET, (err, decodedPayload) => {
+				if (!err) {
+					req.user = {
+						id: decodedPayload.id,
+					};
+				}
+			});
+		}
+	}
+
+	next();
+};
+
+module.exports = {
+	checkTokenSetUser,
+};
