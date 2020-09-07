@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { AuthContext } from "../context/auth/AuthContext";
 import svgImage from "./../assets/cash.svg";
 
 const Wrapper = styled.div`
@@ -58,6 +59,9 @@ const Footer = styled.footer`
 `;
 
 const Home = () => {
+	const { authState } = useContext(AuthContext);
+	const { isAuthenticated } = authState;
+
 	return (
 		<>
 			<Wrapper>
@@ -66,7 +70,9 @@ const Home = () => {
 					A webapp to manage and keep track of all your daily Expenses
 				</Info>
 				<StyledImage src={svgImage} alt="expense-tracker-img" />
-				<StyledLink to="/signup">Sign up</StyledLink>
+				<StyledLink to={isAuthenticated ? "/dashboard" : "/signup"}>
+					{isAuthenticated ? "Go to Dashboard" : "Signup"}
+				</StyledLink>
 			</Wrapper>
 			<Footer>
 				~// Developed by{" "}

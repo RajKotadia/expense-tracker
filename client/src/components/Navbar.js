@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { AuthContext } from "../context/auth/AuthContext";
 import StyledNavLink from "./StyledNavLink";
 import Logo from "./../assets/logo.svg";
 
@@ -55,7 +56,22 @@ const ListItem = styled.li`
 	user-select: none;
 `;
 
+const StyledLink = styled(Link)`
+	color: ${({ theme }) => theme.colors.primary};
+	text-decoration: none;
+	padding-bottom: 3px;
+
+	@media (hover: hover) {
+		&:hover {
+			color: ${({ theme }) => theme.colors.accent};
+		}
+	}
+`;
+
 const Navbar = () => {
+	const { authState } = useContext(AuthContext);
+	const { isAuthenticated } = authState;
+
 	return (
 		<Nav>
 			<Banner to="/">
@@ -64,12 +80,20 @@ const Navbar = () => {
 				</Span>
 			</Banner>
 			<Ul>
-				<ListItem>
-					<StyledNavLink to="/signup">Signup</StyledNavLink>
-				</ListItem>
-				<ListItem>
-					<StyledNavLink to="/login">Login</StyledNavLink>
-				</ListItem>
+				{isAuthenticated ? (
+					<ListItem>
+						<StyledLink to="/">Logout</StyledLink>
+					</ListItem>
+				) : (
+					<>
+						<ListItem>
+							<StyledNavLink to="/signup">Signup</StyledNavLink>
+						</ListItem>
+						<ListItem>
+							<StyledNavLink to="/login">Login</StyledNavLink>
+						</ListItem>
+					</>
+				)}
 			</Ul>
 		</Nav>
 	);
