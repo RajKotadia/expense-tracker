@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "../context/auth/AuthContext";
+import { logout } from "../context/auth/authActions";
 import StyledNavLink from "./StyledNavLink";
 import Logo from "./../assets/logo.svg";
 
@@ -69,7 +70,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Navbar = () => {
-	const { authState } = useContext(AuthContext);
+	const { authState, dispatch } = useContext(AuthContext);
 	const { isAuthenticated } = authState;
 
 	return (
@@ -82,7 +83,9 @@ const Navbar = () => {
 			<Ul>
 				{isAuthenticated ? (
 					<ListItem>
-						<StyledLink to="/">Logout</StyledLink>
+						<StyledLink to="/" onClick={() => logout(dispatch)}>
+							Logout
+						</StyledLink>
 					</ListItem>
 				) : (
 					<>

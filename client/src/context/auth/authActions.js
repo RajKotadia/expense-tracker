@@ -56,3 +56,8 @@ export const login = async (state, dispatch) => {
 		}
 	}
 };
+
+// log user out and clear the token
+export const logout = (dispatch) => {
+	dispatch({ type: RESET });
+};
