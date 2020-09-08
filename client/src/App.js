@@ -8,6 +8,7 @@ import { AuthContext } from "./context/auth/AuthContext";
 import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Signup from "./views/Signup";
+import Login from "./views/Login";
 import { authenticate } from "./context/auth/authActions";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
 				<Switch>
 					<Route exact path="/" component={Home} />
 					<Route exact path="/signup" component={Signup} />
+					<Route exact path="/login" component={Login} />
 				</Switch>
 			</Router>
 		</ThemeProvider>

@@ -37,3 +37,22 @@ export const register = async (state, dispatch) => {
 		}
 	}
 };
+
+// user login
+export const login = async (state, dispatch) => {
+	dispatch({ type: LOADING });
+
+	try {
+		const response = await api.post("/auth/login", state);
+		const { token } = response.data;
+
+		dispatch({ type: SUCCESS, payload: token });
+		authenticate(dispatch);
+	} catch (err) {
+		if (err.response) {
+			dispatch({ type: ERROR, payload: err.response.data.message });
+		} else {
+			dispatch({ type: ERROR, payload: "Seems like you are offline" });
+		}
+	}
+};
