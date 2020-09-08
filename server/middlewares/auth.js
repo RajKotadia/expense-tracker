@@ -21,6 +21,21 @@ const checkTokenSetUser = (req, res, next) => {
 	next();
 };
 
+// check if the user is authenticated to access the private resources
+const isLoggedIn = (req, res, next) => {
+	const { user } = req;
+
+	if (user) {
+		req.userId = user.id;
+		next();
+	} else {
+		const err = new Error("Un-Authorized");
+		res.status(401);
+		next(err);
+	}
+};
+
 module.exports = {
 	checkTokenSetUser,
+	isLoggedIn,
 };
