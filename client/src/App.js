@@ -5,11 +5,13 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
 import { theme } from "./styles/theme";
 import { AuthContext } from "./context/auth/AuthContext";
+import { authenticate } from "./context/auth/authActions";
 import Navbar from "./components/Navbar";
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "./views/Home";
 import Signup from "./views/Signup";
 import Login from "./views/Login";
-import { authenticate } from "./context/auth/authActions";
+import Dashboard from "./views/Dashboard";
 
 function App() {
 	const { dispatch } = useContext(AuthContext);
@@ -27,6 +29,11 @@ function App() {
 					<Route exact path="/" component={Home} />
 					<Route exact path="/signup" component={Signup} />
 					<Route exact path="/login" component={Login} />
+					<PrivateRoute
+						exact
+						path="/dashboard"
+						component={Dashboard}
+					/>
 				</Switch>
 			</Router>
 		</ThemeProvider>
