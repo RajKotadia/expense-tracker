@@ -1,19 +1,13 @@
 const Joi = require("joi");
 
 const Transaction = require("./transaction.model");
+const handleError = require("../../helpers/handleError");
 
 // validation schema
 const schema = Joi.object({
 	text: Joi.string().trim().required(),
 	amount: Joi.number().required(),
 });
-
-// handle error and call next
-const handleError = (statusCode, message, res, next) => {
-	const err = new Error(message);
-	res.status(statusCode);
-	next(err);
-};
 
 // get all the transactions of the loggedIn user
 const getTransactions = async (req, res, next) => {

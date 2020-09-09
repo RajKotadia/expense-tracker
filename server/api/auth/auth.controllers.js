@@ -3,19 +3,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const User = require("./auth.model");
+const handleError = require("../../helpers/handleError");
 
 // validation schema
 const schema = Joi.object({
 	email: Joi.string().trim().lowercase().email().required(),
 	password: Joi.string().trim().min(8).required(),
 });
-
-// handle error and call next
-const handleError = (statusCode, message, res, next) => {
-	const err = new Error(message);
-	res.status(statusCode);
-	next(err);
-};
 
 // generate the jwt token
 const genToken = (user, res, next) => {
