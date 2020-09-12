@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+
+import { TransactionContext } from "../context/transaction/TransactionContext";
+import { fetchTransactions } from "../context/transaction/transactionActions";
 
 import {
 	Balance,
@@ -27,10 +30,11 @@ const Container = styled.div`
 
 const Dashboard = () => {
 	const [height, setHeight] = useState(0);
+	const { transactionState, dispatch } = useContext(TransactionContext);
 
 	useEffect(() => {
-		console.log(window.innerHeight);
 		setHeight(window.innerHeight);
+		fetchTransactions(dispatch);
 	}, []);
 
 	return (

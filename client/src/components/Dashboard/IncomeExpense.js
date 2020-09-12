@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
+
+import { TransactionContext } from "../../context/transaction/TransactionContext";
 
 const Wrapper = styled.div`
 	margin: 20px 0;
@@ -33,15 +35,30 @@ const Total = styled.p`
 `;
 
 const IncomeExpense = () => {
+	const { transactionState } = useContext(TransactionContext);
+	const { transactions } = transactionState;
+
+	let income = 0;
+	let expense = 0;
+
+	transactions.forEach((t) => {
+		const { amount } = t;
+		if (amount < 0) {
+			expense += amount;
+		} else {
+			income += amount;
+		}
+	});
+
 	return (
 		<Wrapper>
 			<Div border>
 				<h4>Income</h4>
-				<Total>₹ 0.00</Total>
+				<Total>₹ {income}</Total>
 			</Div>
 			<Div>
 				<h4>Expense</h4>
-				<Total minus>₹ 0.00</Total>
+				<Total minus>₹ {Math.abs(expense)}</Total>
 			</Div>
 		</Wrapper>
 	);

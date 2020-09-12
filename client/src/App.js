@@ -4,6 +4,9 @@ import { ThemeProvider } from "styled-components";
 
 import GlobalStyle from "./styles/GlobalStyle";
 import { theme } from "./styles/theme";
+
+import TransactionContextProvider from "./context/transaction/TransactionContext";
+
 import { AuthContext } from "./context/auth/AuthContext";
 import { authenticate } from "./context/auth/authActions";
 import Navbar from "./components/Navbar";
@@ -23,19 +26,21 @@ function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			<Router>
-				<Navbar />
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/signup" component={Signup} />
-					<Route exact path="/login" component={Login} />
-					<PrivateRoute
-						exact
-						path="/dashboard"
-						component={Dashboard}
-					/>
-				</Switch>
-			</Router>
+			<TransactionContextProvider>
+				<Router>
+					<Navbar />
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route exact path="/signup" component={Signup} />
+						<Route exact path="/login" component={Login} />
+						<PrivateRoute
+							exact
+							path="/dashboard"
+							component={Dashboard}
+						/>
+					</Switch>
+				</Router>
+			</TransactionContextProvider>
 		</ThemeProvider>
 	);
 }

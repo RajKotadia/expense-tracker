@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { TransactionContext } from "../../context/transaction/TransactionContext";
 import Transaction from "./Transaction";
 
 const H3 = styled.h3`
@@ -48,21 +49,36 @@ const ListItem = styled.li`
 			props.minus ? props.theme.colors.red : props.theme.colors.green};
 `;
 
+const Info = styled.p`
+	margin: 2.2rem 0rem;
+	font-size: 0.9rem;
+	color: ${({ theme }) => theme.colors.secondary};
+	text-align: center;
+`;
+
 const RecentTransactions = () => {
+	const { transactionState } = useContext(TransactionContext);
+	const { transactions } = transactionState;
+
+	const cards = transactions.slice(0, 2).map((element) => (
+		<ListItem key={element._id} minus={element.amount < 0}>
+			<Transaction transaction={element} />
+		</ListItem>
+	));
+
+	const listOfTransactions = transactions.length ? (
+		<Ul>{cards}</Ul>
+	) : (
+		<Info>~ No Transactions ~</Info>
+	);
+
 	return (
 		<>
 			<H3>
 				Recent Transactions
 				<StyledLink to="/dashboard/transactions">View All</StyledLink>
 			</H3>
-			<Ul>
-				<ListItem minus>
-					<Transaction />
-				</ListItem>
-				<ListItem>
-					<Transaction />
-				</ListItem>
-			</Ul>
+			{listOfTransactions}
 		</>
 	);
 };

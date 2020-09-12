@@ -42,6 +42,7 @@ const addTransaction = async (req, res, next) => {
 
 		res.status(201).json({
 			transaction: {
+				_id: transaction._id,
 				text: transaction.text,
 				amount: transaction.amount,
 			},

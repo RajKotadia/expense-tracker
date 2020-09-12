@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import deleteIcon from "../../assets/delete.svg";
+import { TransactionContext } from "../../context/transaction/TransactionContext";
+import { deleteTransaction } from "../../context/transaction/transactionActions";
 
 const Wrapper = styled.div`
 	display: flex;
@@ -40,14 +42,22 @@ const Span = styled.span`
 	text-align: right;
 `;
 
-const Transaction = () => {
+const Transaction = ({ transaction }) => {
+	const { dispatch } = useContext(TransactionContext);
+
+	const sign = transaction.amount < 0 ? "-" : "+";
+
 	return (
 		<Wrapper>
-			<DeleteButton>
+			<DeleteButton
+				onClick={() => deleteTransaction(transaction._id, dispatch)}
+			>
 				<img src={deleteIcon} alt="delete-icon" height="10" />
 			</DeleteButton>
-			<Text>Cash</Text>
-			<Span>- ₹ 0.00</Span>
+			<Text>{transaction.text}</Text>
+			<Span>
+				{sign} ₹ {Math.abs(transaction.amount)}
+			</Span>
 		</Wrapper>
 	);
 };
