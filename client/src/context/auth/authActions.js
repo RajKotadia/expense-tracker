@@ -16,7 +16,10 @@ export const authenticate = async (dispatch) => {
 			dispatch({ type: RESET });
 		}
 	} catch (err) {
-		dispatch({ type: RESET });
+		dispatch({
+			type: ERROR,
+			payload: "Something went wrong, please try again !!",
+		});
 	}
 };
 

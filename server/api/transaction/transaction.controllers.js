@@ -15,7 +15,7 @@ const getTransactions = async (req, res, next) => {
 
 	try {
 		const transactions = await Transaction.find({ user: userId });
-		res.status(200).json({ transactions });
+		res.status(200).json({ transactions: transactions.reverse() });
 	} catch (err) {
 		next(err);
 	}

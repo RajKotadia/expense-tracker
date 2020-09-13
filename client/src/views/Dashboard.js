@@ -30,11 +30,12 @@ const Container = styled.div`
 
 const Dashboard = () => {
 	const [height, setHeight] = useState(0);
-	const { transactionState, dispatch } = useContext(TransactionContext);
+	const { dispatch } = useContext(TransactionContext);
 
 	useEffect(() => {
 		setHeight(window.innerHeight);
 		fetchTransactions(dispatch);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
