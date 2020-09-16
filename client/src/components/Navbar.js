@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { AuthContext } from "../context/auth/AuthContext";
 import { logout } from "../context/auth/authActions";
@@ -57,10 +57,13 @@ const ListItem = styled.li`
 	user-select: none;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.button`
 	color: ${({ theme }) => theme.colors.primary};
-	text-decoration: none;
+	border: none;
 	padding-bottom: 3px;
+	background: transparent;
+	font-size: 1rem;
+	font-weight: 700;
 
 	@media (hover: hover) {
 		&:hover {
@@ -69,7 +72,7 @@ const StyledLink = styled(Link)`
 	}
 `;
 
-const Navbar = () => {
+const Navbar = ({ history }) => {
 	const { authState, dispatch } = useContext(AuthContext);
 	const { isAuthenticated } = authState;
 
@@ -83,7 +86,12 @@ const Navbar = () => {
 			<Ul>
 				{isAuthenticated ? (
 					<ListItem>
-						<StyledLink to="/" onClick={() => logout(dispatch)}>
+						<StyledLink
+							onClick={() => {
+								logout(dispatch);
+								history.push("/");
+							}}
+						>
 							Logout
 						</StyledLink>
 					</ListItem>
@@ -102,4 +110,4 @@ const Navbar = () => {
 	);
 };
 
-export default Navbar;
+export default withRouter(Navbar);

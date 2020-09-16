@@ -8,9 +8,11 @@ import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { Redirect } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
 	const { authState, dispatch } = useContext(AuthContext);
 	const { isAuthenticated, loading, error } = authState;
+
+	const { from } = props.location.state || { from: { pathname: "/" } };
 
 	const [user, setUser] = useState({});
 
@@ -27,7 +29,7 @@ const Login = () => {
 	};
 
 	if (isAuthenticated) {
-		return <Redirect to="/dashboard" />;
+		return <Redirect to={from} />;
 	}
 
 	return (
