@@ -16,10 +16,11 @@ export const authenticate = async (dispatch) => {
 			dispatch({ type: RESET });
 		}
 	} catch (err) {
-		dispatch({
-			type: ERROR,
-			payload: "Something went wrong, please try again !!",
-		});
+		if (err.response) {
+			dispatch({ type: RESET });
+		} else {
+			dispatch({ type: ERROR, payload: "Seems like you are offline" });
+		}
 	}
 };
 
