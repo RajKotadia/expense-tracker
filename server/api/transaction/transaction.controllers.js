@@ -45,6 +45,7 @@ const addTransaction = async (req, res, next) => {
 				_id: transaction._id,
 				text: transaction.text,
 				amount: transaction.amount,
+				createdAt: transaction.createdAt,
 			},
 		});
 	} catch (err) {
