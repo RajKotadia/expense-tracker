@@ -15,6 +15,7 @@ import Home from "./views/Home";
 import Signup from "./views/Signup";
 import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
+import Transactions from "./views/Transactions";
 
 function App() {
 	const { dispatch } = useContext(AuthContext);
@@ -33,6 +34,11 @@ function App() {
 						<Route exact path="/" component={Home} />
 						<Route exact path="/signup" component={Signup} />
 						<Route exact path="/login" component={Login} />
+						<PrivateRoute
+							exact
+							path="/dashboard/transactions"
+							component={Transactions}
+						/>
 						<PrivateRoute
 							exact
 							path="/dashboard"

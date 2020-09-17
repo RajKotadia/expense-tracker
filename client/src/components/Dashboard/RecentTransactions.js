@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { TransactionContext } from "../../context/transaction/TransactionContext";
 import Transaction from "./Transaction";
 
-const H3 = styled.h3`
+export const H3 = styled.h3`
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
@@ -14,11 +14,11 @@ const H3 = styled.h3`
 	border-bottom: 2px solid ${({ theme }) => theme.colors.gray};
 `;
 
-const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)`
 	display: inline-block;
 	margin-right: 6px;
 	text-decoration: none;
-	font-size: 13px;
+	font-size: 15px;
 	color: ${({ theme }) => theme.colors.accent};
 	font-weight: 600;
 	-webkit-user-select: none;
@@ -35,7 +35,7 @@ const Ul = styled.ul`
 	margin-bottom: 28px;
 `;
 
-const ListItem = styled.li`
+export const ListItem = styled.li`
 	padding: 10px;
 	margin: 10px 0;
 	background-color: #fff;
@@ -49,7 +49,7 @@ const ListItem = styled.li`
 			props.minus ? props.theme.colors.red : props.theme.colors.green};
 `;
 
-const Info = styled.p`
+export const Info = styled.p`
 	margin: 2.2rem 0rem;
 	font-size: 0.9rem;
 	color: ${({ theme }) => theme.colors.secondary};
@@ -62,7 +62,7 @@ const RecentTransactions = () => {
 
 	const cards = transactions.slice(0, 2).map((element) => (
 		<ListItem key={element._id} minus={element.amount < 0}>
-			<Transaction transaction={element} />
+			<Transaction transaction={element} showDate={false} />
 		</ListItem>
 	));
 

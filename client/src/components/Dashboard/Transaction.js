@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { format, parseISO } from "date-fns";
 import styled from "styled-components";
 
 import deleteIcon from "../../assets/delete.svg";
@@ -11,15 +12,16 @@ const Wrapper = styled.div`
 	align-items: center;
 `;
 
-const Text = styled.p`
+const Text = styled.div`
 	flex: 1;
+	font-size: 18px;
 `;
 
 const DeleteButton = styled.button`
 	background-color: transparent;
 	border: 0;
 	opacity: 0.4;
-	padding-right: 8px;
+	padding-right: 12px;
 	cursor: pointer;
 	outline: none;
 	-webkit-user-select: none;
@@ -42,7 +44,13 @@ const Span = styled.span`
 	text-align: right;
 `;
 
-const Transaction = ({ transaction }) => {
+const Date = styled.p`
+	font-size: 12px;
+	margin-bottom: 1px;
+	color: #999;
+`;
+
+const Transaction = ({ transaction, showDate }) => {
 	const { dispatch } = useContext(TransactionContext);
 
 	const sign = transaction.amount < 0 ? "-" : "+";
@@ -54,7 +62,14 @@ const Transaction = ({ transaction }) => {
 			>
 				<img src={deleteIcon} alt="delete-icon" height="10" />
 			</DeleteButton>
-			<Text>{transaction.text}</Text>
+			<Text>
+				{showDate && (
+					<Date>
+						{format(parseISO(transaction.createdAt), "h:mm a")}
+					</Date>
+				)}
+				{transaction.text}
+			</Text>
 			<Span>
 				{sign} ₹ {Math.abs(transaction.amount)}
 			</Span>

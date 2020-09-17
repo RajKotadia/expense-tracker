@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
 	width: 320px;
-	margin: 0.9rem auto 6px auto;
+	margin: 0.7rem auto 4px auto;
 
 	@media (max-height: 1024px) and (min-height: 700px) {
 		margin: 2rem auto 10px auto;
