@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
+
 import { TransactionContext } from "../../context/transaction/TransactionContext";
+import { formatAmount } from "../../helpers/formatAmount";
 
 const Balance = () => {
 	const { transactionState } = useContext(TransactionContext);
@@ -14,7 +16,7 @@ const Balance = () => {
 		<>
 			<h4>Your Balance</h4>
 			<h2>
-				{balance < 0 && "-"} ₹ {Math.abs(balance)}
+				{balance < 0 && "-"} ₹ {formatAmount(Math.abs(balance))}
 			</h2>
 		</>
 	);

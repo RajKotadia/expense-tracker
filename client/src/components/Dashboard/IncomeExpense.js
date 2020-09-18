@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 
 import { TransactionContext } from "../../context/transaction/TransactionContext";
+import { formatAmount } from "../../helpers/formatAmount";
 
 const Wrapper = styled.div`
 	margin: 20px 0;
@@ -54,11 +55,11 @@ const IncomeExpense = () => {
 		<Wrapper>
 			<Div border>
 				<h4>Income</h4>
-				<Total>₹ {income}</Total>
+				<Total>₹ {formatAmount(income)}</Total>
 			</Div>
 			<Div>
 				<h4>Expense</h4>
-				<Total minus>₹ {Math.abs(expense)}</Total>
+				<Total minus>₹ {formatAmount(Math.abs(expense))}</Total>
 			</Div>
 		</Wrapper>
 	);

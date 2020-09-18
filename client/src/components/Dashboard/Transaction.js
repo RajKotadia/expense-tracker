@@ -5,6 +5,7 @@ import styled from "styled-components";
 import deleteIcon from "../../assets/delete.svg";
 import { TransactionContext } from "../../context/transaction/TransactionContext";
 import { deleteTransaction } from "../../context/transaction/transactionActions";
+import { formatAmount } from "../../helpers/formatAmount";
 
 const Wrapper = styled.div`
 	display: flex;
@@ -71,7 +72,7 @@ const Transaction = ({ transaction, showDate }) => {
 				{transaction.text}
 			</Text>
 			<Span>
-				{sign} ₹ {Math.abs(transaction.amount)}
+				{sign} ₹ {formatAmount(Math.abs(transaction.amount))}
 			</Span>
 		</Wrapper>
 	);
