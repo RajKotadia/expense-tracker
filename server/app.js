@@ -15,7 +15,7 @@ require("./helpers/dbConnection");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(morgan("tiny"));
 
 // token verification middleware
@@ -25,7 +25,7 @@ app.use(checkTokenSetUser);
 app.use("/api", routes);
 
 // serve static assets if in production
-if (process.env.NODE_ENV === "production") {
+if (true) {
 	const staticPath = path.resolve(__dirname, "../", "client/build");
 
 	app.use(express.static("client/build"));
