@@ -21,13 +21,12 @@ const AddTransaction = () => {
 	const handleChange = (e) => {
 		setTransaction({
 			...transaction,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value.trim(),
 		});
 	};
 
-	const handleSubmit = (e) => {
+	const hnadleSubmit = (e) => {
 		e.preventDefault();
-		transaction.text = transaction.text.trim();
 		addTransaction(transaction, dispatch);
 		setTransaction({});
 	};
@@ -36,7 +35,7 @@ const AddTransaction = () => {
 		<>
 			<H3>Add Transaction</H3>
 			{error && <ErrorMessage>{error}</ErrorMessage>}
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={hnadleSubmit}>
 				<FormField>
 					<Input
 						type="text"
