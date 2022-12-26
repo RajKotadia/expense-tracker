@@ -1,7 +1,7 @@
 {
 	"name": "expense-tracker",
-	"version": "1.0.0",
-	"description": "A MERN stack based webapp to manage your expenses.  ",
+	"version": "1.1.0",
+	"description": "A MERN stack based webapp to manage your expenses.",
 	"main": "index.js",
 	"scripts": {
 		"start": "node server/index.js",
@@ -10,8 +10,7 @@
 		"client-install": "npm install --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
 		"prebuild": "npm run client-install",
-		"build": "npm run build --prefix client",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+		"build": "npm run build --prefix client"
 	},
 	"keywords": [
 		"nodejs",

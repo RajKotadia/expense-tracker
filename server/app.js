@@ -26,9 +26,9 @@ app.use("/api", routes);
 
 // serve static assets if in production
 if (true) {
-	const staticPath = path.resolve(__dirname, "../", "client/build");
+	const staticPath = path.resolve(__dirname, "../", "client/dist");
 
-	app.use(express.static("client/build"));
+	app.use(express.static("client/dist"));
 	app.get("*", (_, res) => {
 		res.sendFile(path.resolve(staticPath, "index.html"));
 	});
