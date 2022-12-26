@@ -6,8 +6,6 @@ A minimalist webapp to manage and keep track of all your expenses built using th
     ⚡ React Hooks and Context API for State Management.
     💅 Styling done with styled-components.
 
-> ✨ Check it out at **[https://xpenser.herokuapp.com](https://xpenser.herokuapp.com)**
-
 ## To run locally
 
 1. Clone the repo and install all the dependencies
